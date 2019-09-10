@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!--控制器注解驱动-->
+    <mvc:annotation-driven/>
+
+    <!--配置controller、Aspect注解扫描
+        use-default-filters 属性的默认值为 true，即使用默认的 Filter 进行包扫描，
+        而默认的 Filter 对标有 @Service,@Controller和@Repository 的注解的类进行扫描
+        use-default-filters="false" 需要和 context:include-filter 一起使用
+    -->
+    <context:component-scan base-package="com.exam.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+    </context:component-scan>
+
+    <!--静态资源映射-->
+    <mvc:default-servlet-handler/>
+    <!--配置视图解析器，即可以访问html页面，也可以访问jsp页面-->
+    <!--配置html视图解析器-->
+    <bean id="freeMarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value=""/>
+        <property name="freemarkerSettings">
+            <props>
+                <!-- classic_compatible=true:对象如为null，则替换为空，不抛出系统异常！ -->
+                <prop key="classic_compatible">true</prop>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="template_update_delay">2</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="output_encoding">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="number_format">#.##</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- freemarker文件解析器 -->
+    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="order" value="0" />
+        <property name="cache" value="true" />
+        <!-- 注：prefix与freemarkerConfig-templateLoaderPath只需定义其中一个-->
+        <property name="prefix" value="" />
+        <property name="suffix" value=".html" />
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+    </bean>
+
+    <!--jsp视图解析器-->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--如果配置的有html视图解析器，不能用jstl-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+        <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/>
+      <!-- <property name="prefix" value="/jsp/"/>-->
+        <property name="suffix" value=".jsp"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="order" value="0"/>  <!--配置优先等级，越小优先级越高-->
+    </bean>
+
+ <!--<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <bean class="com.exam.interceptor.UserInterceptor"></bean>
+    </mvc:interceptor>
+</mvc:interceptors>-->
+
+</beans>

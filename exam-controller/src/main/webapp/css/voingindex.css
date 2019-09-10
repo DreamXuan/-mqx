@@ -1,0 +1,327 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+}
+/*导航条*/
+.head {
+	height: 45px;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+.head-left {
+	margin-top: 10px;
+	margin-left: 100px;
+	width: 400px;
+	font-size: 20px;
+	color: gray;
+}
+nav{
+	position: relative;
+}
+nav ul {
+	background-color: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	right: 150px;
+	top:0px;
+	height: 100%;
+}
+
+nav ul li {
+	border: 0px;
+	position: absolute;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 100%;
+	width: 120px;
+	height: 100%;
+	color: black;
+}
+nav ul li a{
+	border: 0px;
+	height: 45px;
+	
+}
+nav ul li a:hover{
+	border: 0px;
+}
+nav ul li .borderBottom{
+	width: 120px;
+	height: 5px;
+	background-color: rgb(117,211,183);
+	position: absolute;
+	top: 45px;
+	right: 0px;
+	display: none;
+}
+nav ul li:hover .borderBottom{
+	display: inherit;
+	animation: borderani 0.5s;
+}
+/*鼠标触发导航栏样式*/
+@keyframes borderani {
+	0% {
+		left: 15px;
+	}
+	25% {
+		
+		left: -15px;
+	}
+	50% {
+		left: 5px;
+	}
+	75% {
+		left: -5px;
+	}
+	100% {
+		left: 0px;
+	}
+}
+
+#shouye {
+	margin-top: 3.5%;
+	width: 100%;
+	height: 95%;
+	overflow: hidden;
+}
+#log {
+	border: 0px;
+	background-color: rgb(117,211,183);
+}
+.a {
+	border: 0px;
+}
+
+.arrow-left {
+	position: absolute;
+	top: 137px;
+	left: 17px;
+}
+
+.arrow-right {
+	position: absolute;
+	top: 139px;
+	right: 50px;
+}
+
+#shouye-center {
+	color: rgb(117,211,183);
+	height: 30px;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#shouye-foot {
+	position: relative;
+	width: 600px;
+	height: 165px;
+	margin: 0px auto;
+	bottom: 0px;
+	display: none;
+}
+
+#shouye-foot>.foot {
+	align-content: center;
+	width: 198px;
+	float: left;
+}
+/*首页中的字体*/
+h3 {
+	margin: 10px;
+	margin-bottom: 5px;
+	text-align: center;
+	color: rgb(117,211,183);
+}
+
+#shouye-foot img {
+	margin-left: 50px;
+}
+
+#shouye-foot .top {
+	margin-left: 55px;
+	margin-bottom: -20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: rgb(62, 67, 70);
+}
+
+.foot p {
+	text-align: center;
+	margin-top: -10px;
+	left: 5px;
+	font-size: 16px;
+	font-weight: 200;
+	color: gray;
+}
+
+#shouye {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+#gongneng {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgb(255, 62, 89);/*红色*/
+}
+
+#xiangmu {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgb(211, 164, 255);/*淡紫色*/
+}
+
+#tuandui {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgb(255,192,63);/*黄色*/
+}
+#login{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	display: none;
+}
+.gong-center-left,.xiangmu-center-left,.tuandui-center-left{
+	width: 320px;
+	height: 320px;
+	position: absolute;
+	bottom: 150px;
+	display: none;
+	left: 313px;
+}
+.gong-center-left img,.xiangmu-center-left img,.tuandui-center-left img{
+	width: 100%;
+}
+.gong-top,.xiangmu-top,.tuandui-top{
+	text-align: center;
+	color: white;
+	line-height: 65px;
+	font-size: 30px;
+	height: 65px;
+	width: 190px;
+	position: absolute;
+	left: 588px;
+	top: 55px;
+	border-bottom: 2px solid white;
+}
+.gong-center-right,.xiangmu-center-right,.tuandui-center-right{
+	width: 400px;
+	height: 320px;
+	position: absolute;
+	text-align: center;
+	right: 230px;
+	bottom: 150px;
+	display: none;
+	padding-top: 50px;
+}
+.gong-center-left{
+	left: 343px;
+}
+.gong-center-right{
+	right: 253px;
+}
+#gongneng p,#tuandui p,#xiangmu p{
+	line-height: 35px;
+	font-size: 18px;
+	font-weight: bold;
+	font-family:"微软雅黑";
+	color: white;
+
+}
+p strong{
+	margin-left: 5px;
+	margin-right:5px;
+	font-size: 20px;;
+}
+#login {
+	color: white;
+}
+@keyframes gongani {
+	from {
+		left: 0px;
+	}
+	to {
+		left: 343px;
+	}
+}
+
+@keyframes gongani-right {
+	0% {
+		right: 0px;
+	}
+	100% {
+		right: 253px;
+	}
+}
+/*项目介绍页面的动画*/
+@keyframes xiangmuani-right {
+	from {
+		transform: rotate(200deg);
+		right: -600px;
+		bottom: -500px;
+	}
+	to {
+		transform: rotate(0deg);
+		bottom: 150px;
+		right: 233px;
+	}
+}
+@keyframes xiangmuani-left {
+	from {
+		transform: rotate(-200deg);
+		left: -500px;
+		bottom: -500px;
+	}
+	to {
+		transform: rotate(0deg);
+		bottom: 150px;
+		left: 313px;
+	}
+}
+/*团队介绍的动画*/
+@keyframes tuanduiani-right {
+	from {
+		transform: rotate(-200deg);
+		right: 500px;
+		bottom: -500px;
+	}
+	to {
+		transform: rotate(0deg);
+		bottom: 150px;
+		right: 233px;
+	}
+}
+
+@keyframes tuanduiani-left {
+	from {
+		transform: rotate(200deg);
+		left: 480px;
+		bottom: -500px;
+	}
+	to {
+		transform: rotate(0deg);
+		bottom: 150px;
+		left: 313px;
+	}
+}
+/*登录页面后面的提示框*/
+#msg {
+	display: none;
+	font-size: 18px;
+	height: 25px;
+	line-height: 25px;
+}

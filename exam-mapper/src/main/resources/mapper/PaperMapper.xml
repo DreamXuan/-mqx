@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.mapper.PaperMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.pojo.Paper" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="NameCountMap" type="com.exam.pojo.Paper">
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="scount" property="scount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  example and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                   and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, pname, sid,count(*)scount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.pojo.PaperExample" >
+    select
+    <if test="example.distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by pname
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.pojo.PaperExample" >
+    delete from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertPaper" keyProperty="pid" useGeneratedKeys="true">
+            INSERT INTO paper(pid,pname,sid)  SELECT #{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR},sid FROM
+			subject where sstate = 1 and sid >= ((SELECT MAX(sid) FROM subject)-(SELECT MIN(sid) FROM subject)) * RAND() + (SELECT MIN(sid) FROM subject)
+			LIMIT #{scount,jdbcType=INTEGER}
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.pojo.Paper" >
+    insert into paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByPaper" parameterType="com.exam.pojo.Paper" resultMap="NameCountMap" >
+    SELECT pname,count(*) scount FROM paper GROUP BY pname
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paper
+    <set >
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paper
+    set pid = #{record.pid,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.pojo.Paper" >
+    update paper
+    <set >
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.pojo.Paper" >
+    update paper
+    set pname = #{pname,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

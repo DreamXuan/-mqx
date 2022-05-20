@@ -54,7 +54,7 @@
         <lombok.version>1.18.2</lombok.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <commons-httpclient>3.1</commons-httpclient>
-        <google-gson>2.8.2</google-gson>
+        <google-gson>2.8.9</google-gson>
         <pagehelper>4.1.4</pagehelper>
 
 
